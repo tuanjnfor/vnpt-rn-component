@@ -1,29 +1,19 @@
-import { NativeModules, Platform } from 'react-native';
-
-const LINKING_ERROR =
-  `The package 'vnpt-rn-component' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
-
-// @ts-expect-error
-const isTurboModuleEnabled = global.__turboModuleProxy != null;
-
-const VnptRnComponentModule = isTurboModuleEnabled
-  ? require('./NativeVnptRnComponent').default
-  : NativeModules.VnptRnComponent;
-
-const VnptRnComponent = VnptRnComponentModule
-  ? VnptRnComponentModule
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
-
-export function multiply(a: number, b: number): Promise<number> {
-  return VnptRnComponent.multiply(a, b);
-}
+import Thumb from './Thumb';
+export * from './Box';
+export * from './Circle';
+export * from './Text';
+export * from './types';
+// export * from './Provider';
+export * from './Alert';
+export * from './Button';
+export * from './Input';
+export * from './Utils';
+export * from './Popup';
+export { Thumb };
+export * from './Responsive';
+export * from './IphoneXHelper';
+export { Color } from './Color';
+export { Icons as Icon } from './Icon';
+export * from './Spacing';
+export * from './DatePicker';
+export * from './AppLanguage';
